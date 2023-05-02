@@ -5,9 +5,6 @@ inputs:
   issue-number:
     description: 'The issue number to add the comment to'
     required: true
-  comment-author:
-    description: 'The username of the comment author to look for'
-    default: 'github-actions[bot]'
 
 runs:
   using: 'composite'
@@ -17,7 +14,7 @@ runs:
       id: finder
       with:
         issue-number: ${{ inputs.issue-number }}
-        comment-author: ${{ inputs.comment-author }}
+        comment-author: 'github-actions[bot]'
         body-includes: 'Thanks for the feature request! We are going to give the community'
 
     - name: Add Community Feedback Comment
