@@ -10,28 +10,20 @@ inputs:
     default: 'github-actions[bot]'
 
 runs:
+  using: 'composite'
   steps:
-    - name: Get Comments
-      id: comments
-      uses: actions/github-script@v4
+    - name: Check For Existing Comment
+      uses: peter-evans/find-comment@v2
+      id: finder
       with:
-        script: |
-          const { data: comments } = await github.issues.listComments({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            issue_number: ${{ inputs.issue-number }},
-          });
-          const filtered = comments.filter(comment => comment.user.login === '${{ inputs.comment-author }}' && comment.body.includes('Thanks for the feature request! We are going to give the community'));
-          return { commentId: filtered[0]?.id };
+        issue-number: ${{ inputs.issue-number }}
+        comment-author: 'github-actions[bot]'
+        body-includes: 'Thanks for the feature request! We are going to give the community'
 
     - name: Add Community Feedback Comment
-      if: ${{ !steps.comments.outputs.commentId }}
-      uses: actions/github-script@v4
+      if: steps.finder.outputs.comment-id == ''
+      uses: peter-evans/create-or-update-comment@v3
       with:
-        script: |
-          await github.issues.createComment({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            issue_number: ${{ inputs.issue-number }},
-            body: 'Thanks for the feature request! We are going to give the community 60 days from when this issue was created to provide 7 👍 upvotes on the opening comment to gauge general interest in this idea. If there\'s enough upvotes then we will consider this feature request in our future planning. If there\'s unfortunately not enough upvotes then we will close this issue.'
-          });
+        issue-number: ${{ inputs.issue-number }}
+        body: |
+          Thanks for the feature request! We are going to give the community 60 days from when this issue was created to provide 7 👍 upvotes on the opening comment to gauge general interest in this idea. If there's enough upvotes then we will consider this feature request in our future planning. If there's unfortunately not enough upvotes then we will close this issue.
