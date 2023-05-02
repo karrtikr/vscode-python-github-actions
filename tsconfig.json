@@ -14,6 +14,7 @@
 	},
 	"exclude": [
 		"**/*.test.ts",
-		"**/vm-filesystem/**"
+		"**/vm-filesystem/**",
+		"node_modules"
 	]
 }
