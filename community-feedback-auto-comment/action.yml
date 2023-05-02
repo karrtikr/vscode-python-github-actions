@@ -5,9 +5,6 @@ inputs:
   issue-number:
     description: 'The issue number to add the comment to'
     required: true
-  comment-author:
-    description: 'The username of the comment author to look for'
-    default: 'github-actions[bot]'
 
 runs:
   using: 'composite'
