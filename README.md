@@ -1,4 +1,4 @@
-# VS Code Python's Issue Triage GitHub Actions
+# VS Code Python's GitHub Actions
 
 We host our [GitHub Actions](https://help.github.com/en/actions) for VSCode Python related repos here.
 
@@ -7,10 +7,9 @@ Many of these are not specific to VS Code Python, and can be used in other proje
 ```yml
 steps:
   - name: Checkout Actions
-    uses: actions/checkout@v2
+    uses: actions/checkout@v3
     with:
-      repository: 'microsoft/vscode-triage-github-actions'
-      ref: stable # not recommeneded, use the lastest released tag to ensure stability
+      repository: 'microsoft/vscode-python-github-actions'
   - name: Install Actions
     run: npm install --production
   - name: Run Commands
