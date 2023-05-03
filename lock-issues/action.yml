@@ -1,0 +1,17 @@
+name: Lock Issues
+
+inputs:
+  token:
+    description: 'GitHub token'
+    default: ${{ github.token }}
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - uses: dessant/lock-threads@v4
+      with:
+        github-token: ${{ inputs.token }}
+        issue-inactive-days: '30'
+        process-only: 'issues'
+        log-output: true
