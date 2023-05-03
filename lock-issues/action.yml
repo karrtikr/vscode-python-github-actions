@@ -5,6 +5,10 @@ inputs:
     description: 'GitHub token'
     default: ${{ github.token }}
     required: true
+  issue-inactive-days:
+    description: 'Issue inactive days'
+    default: '30'
+    required: false
 
 runs:
   using: 'composite'
@@ -12,6 +16,6 @@ runs:
     - uses: dessant/lock-threads@v4
       with:
         github-token: ${{ inputs.token }}
-        issue-inactive-days: '30'
+        issue-inactive-days: ${{ inputs.issue-inactive-days }}
         process-only: 'issues'
         log-output: true
