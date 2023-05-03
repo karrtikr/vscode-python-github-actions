@@ -1,0 +1,19 @@
+name: Triage "info-needed" label
+
+inputs:
+  token:
+    description: 'GitHub token'
+    default: ${{ github.token }}
+    required: true
+  triagers:
+    description: 'Triagers to add to the issue'
+    required: false
+    default: '["karrtikr","karthiknadig","paulacamargo25","eleanorjboyd"]'
+  repo_labels:
+    description: 'Keywords that indicate a question is being asked'
+    required: true
+    default: '["area-data science","area-debugging","area-diagnostics","area-editor-*","area-environments","area-formatting","area-intellisense","area-internal","area-linting","area-terminal","area-testing","author-verification-requested","bug","community ask","debt","dependencies","documentation","experimenting","feature-request","good first issue","help wanted","important","info-needed","invalid-testplan-item","investigating","iteration-candidate","iteration-plan","iteration-plan-draft","javascript","linux","macos","meta","needs community feedback","needs PR","needs proposal","needs spike","no-changelog","on-testplan","partner ask","regression","release-plan","reports-wanted","skip package*.json","skip tests","tensorboard","testplan-item","triage-needed","verification-found","verification-needed","verification-steps-needed","verified","windows"]'
+
+runs:
+  using: 'node16'
+  main: 'index.js'
